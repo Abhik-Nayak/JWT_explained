@@ -1,0 +1,1 @@
+# random_box_color_area
