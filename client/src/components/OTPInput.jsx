@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import { RecoveryContext } from "../App";
+import { RecoveryContext } from "../Context";
 
 export default function () {
   const { email, otp, setPage } = useContext(RecoveryContext);

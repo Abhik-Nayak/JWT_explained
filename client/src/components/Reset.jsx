@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { RecoveryContext } from "../App";
+import { RecoveryContext } from "../Context";
 
 export default function Reset() {
   const { setPage } = useContext(RecoveryContext);

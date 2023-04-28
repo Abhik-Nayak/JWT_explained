@@ -1,14 +1,15 @@
 import axios from "axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useContext } from "react";
-import { RecoveryContext } from "../App";
+import { RecoveryContext } from "../Context";
 
 export default function () {
   const { setEmail, setPage, email, setOTP } = useContext(RecoveryContext);
-  console.log(setEmail,email);
-
+  const [email1, setEmail1] = useState('');
+  console.log(email);
   function nagigateToOtp() {
-    if (email) {
+    setEmail(email1);
+    if (email1) {
       const OTP = Math.floor(Math.random() * 9000 + 1000);
       console.log(OTP);
       setOTP(OTP);
@@ -16,7 +17,7 @@ export default function () {
       axios
         .post("http://localhost:5000/send_recovery_email", {
           OTP,
-          recipient_email: email,
+          recipient_email: email1,
         })
         .then(() => setPage("otp"))
         .catch(console.log);
@@ -101,13 +102,14 @@ export default function () {
 
                 <div className="mb-6">
                   <input
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setEmail1(e.target.value)}
                     type="text"
+                    value={email1}
                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="exampleFormControlInput2"
                     placeholder="Email address"
                   />
-                  
+
                 </div>
 
                 <div className="mb-6">
