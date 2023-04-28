@@ -28,6 +28,7 @@ app.post("/api/refresh", (req, res) => {
     if(!refreshTokens.includes(refreshToken)) {
         return res.status(403).json("Refresh token is not valid")
     }
+    
 
     // If everything is ok, create new access token and send the user
 
