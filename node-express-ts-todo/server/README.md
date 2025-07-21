@@ -67,7 +67,7 @@ npx prisma generate
 
 4.=================================
 Directory Structure
-src/
+<!-- src/
   controllers/
     authController.ts
     todoController.ts
@@ -84,4 +84,13 @@ src/
   utils/
     validate.ts
   app.ts
-  server.ts
+  server.ts -->
+
+
+<!-- POST /api/auth/register to register a new user.
+
+POST /api/auth/login to log in and get a JWT token.
+
+GET /api/todos (with the JWT token in the Authorization header) to fetch todos.
+
+POST /api/todos (with the JWT token in the Authorization header) to create a new todo. -->
