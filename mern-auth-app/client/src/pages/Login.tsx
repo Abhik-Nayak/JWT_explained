@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { loginUser } from '../store/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector(state => state.auth);
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const { loading, error, user } = useAppSelector(state => state.auth);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,6 +17,13 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginUser(formData));
   };
+
+  // Navigate to dashboard after successful login
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user]);
 
   return (
     <div className="max-w-md mx-auto mt-10">
