@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from "./routes/auth.routes";
+import clearRoutes from "./routes/clear.routes";
 
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api', clearRoutes);
 
 
 export default app;

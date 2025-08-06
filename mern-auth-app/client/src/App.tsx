@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { useAppDispatch } from './store/hooks';
 import { loadUser } from './store/authSlice';
 import { useEffect } from 'react';
+import VerifyEmailPage from './pages/verify-email';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -13,12 +14,13 @@ function App() {
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch]);
-  
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
 
         <Route path="/dashboard" element={
           <ProtectedRoute>

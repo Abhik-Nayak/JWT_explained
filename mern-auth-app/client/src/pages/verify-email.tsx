@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from "../api/axios";
 import Loader from '../components/Loader'; // optional loader
 import { toast } from 'react-hot-toast';
 

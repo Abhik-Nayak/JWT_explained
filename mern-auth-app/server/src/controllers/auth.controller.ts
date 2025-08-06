@@ -16,45 +16,24 @@ export const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
   try {
     const exists = await User.findOne({ email });
-    if (exists && exists.verified)
-      return res.status(400).json({ message: "User already exists" });
+    if (exists) return res.status(400).json({ message: "User already exists" });
+    const user = await User.create({
+      name,
+      email,
+      password,
+      verificationToken: crypto.randomBytes(32).toString("hex"),
+      verificationTokenExpiry: Date.now() + 1000 * 60 * 60 * 24, // 24 hrs
+    });
 
-    if (exists) {
-      exists.verificationToken = crypto.randomBytes(32).toString("hex");
-      exists.verificationTokenExpiry = Date.now() + 1000 * 60 * 60 * 24;
-      const user = await exists.save();
-      const verificationLink = `${process.env.CLIENT_URL}/verify-email?token=${user.verificationToken}`;
+    const verificationLink = `${process.env.CLIENT_URL}/verify-email?token=${user.verificationToken}`;
 
-      await sendEmail(
-        user.email,
-        "Verify your account",
-        `<h2>Welcome, ${user.name}</h2><p>Please <a href="${verificationLink}">click here</a> to verify your account.</p>`
-      );
+    await sendEmail(
+      user.email,
+      "Verify your account",
+      `<h2>Welcome, ${user.name}</h2><p>Please <a href="${verificationLink}">click here</a> to verify your account.</p>`
+    );
 
-      res
-        .status(201)
-        .json({ user });
-    } else {
-      const user = await User.create({
-        name,
-        email,
-        password,
-        verificationToken: crypto.randomBytes(32).toString("hex"),
-        verificationTokenExpiry: Date.now() + 1000 * 60 * 60 * 24, // 24 hrs
-      });
-
-      const verificationLink = `${process.env.CLIENT_URL}/verify-email?token=${user.verificationToken}`;
-
-      await sendEmail(
-        user.email,
-        "Verify your account",
-        `<h2>Welcome, ${user.name}</h2><p>Please <a href="${verificationLink}">click here</a> to verify your account.</p>`
-      );
-
-      res
-        .status(201)
-        .json({ user });
-    }
+    res.status(201).json({ user });
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err });
   }
