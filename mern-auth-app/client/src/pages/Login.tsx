@@ -18,6 +18,7 @@ const Login = () => {
     dispatch(loginUser(formData));
   };
 
+
   // Navigate to dashboard after successful login
   useEffect(() => {
     if (user) {
@@ -36,6 +37,8 @@ const Login = () => {
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
+      <button className="bg-green-600 text-white px-4 py-2 rounded" onClick={() => navigate('/requestPasswordReset')}>
+        Password Reset</button>
     </div>
   );
 };
