@@ -17,7 +17,7 @@ const SetNewPassword: React.FC = () => {
 
     try {
       setLoading(true);
-      await axiosInstance.post(`/api/auth/reset-password/${token}`, { password });
+      await axiosInstance.post(`/auth/reset-password/${token}`, { password });
       alert('Password reset successful!');
       navigate('/login'); // redirect to login page after success
     } catch (err: any) {

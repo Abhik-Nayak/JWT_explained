@@ -24,7 +24,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/requestPasswordReset" element={<ResetPasswordRequest />} />
-        <Route path="/reset-password" element={<SetNewPassword />} />
+        <Route path="/reset-password/:token" element={<SetNewPassword />} />
         <Route path="/dashboard" element={
           <ProtectedRoute>
             <Dashboard />
