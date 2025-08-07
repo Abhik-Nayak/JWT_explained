@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import VerifyEmailPage from './pages/verify-email';
 import ResetPasswordRequest from './pages/ResetPasswordRequest';
 import SetNewPassword from './pages/SetNewPassword';
+import NotFound from './pages/NotFound';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ function App() {
           </ProtectedRoute>
         } />
       </Routes>
+      <Route path="*" element={<NotFound />} />
     </BrowserRouter>
   );
 }
